@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 const { Command } = require('commander')
+const axios = require('axios');
 
 const program = new Command()
 program
@@ -58,5 +59,17 @@ program
         console.log(`The quotient of ${num1} and ${num2} is ${num1 / num2}`);
     });
 
+
+program
+.command("quote")
+.action(async () => {
+    try {
+        const response = await axios.get("https://api.quotable.io/random");
+        const data = response.data;
+        console.log(`"${data.content}" - ${data.author}`);
+    } catch (error) {
+        console.error("Failed to fetch quote:", error);
+    }
+}); 
 
 program.parse();
