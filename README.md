@@ -24,6 +24,26 @@ It follows an Object-Oriented Architecture, encapsulating each command into its 
    npm install
    ```
 
+## Folder Structure
+
+```text
+.
+├── package.json
+├── tsconfig.json
+├── cli.ts
+└── commands/
+    ├── randomNumberCommand.ts
+    ├── palindromeCommand.ts
+    ├── wordCountCommand.ts
+    ├── factorialCommand.ts
+    ├── fibonacciCommand.ts
+    ├── uuidCommand.ts
+    ├── jsonFormatCommand.ts
+    ├── urlStatusCommand.ts
+    ├── base64Command.ts
+    └── dateDiffCommand.ts
+```
+
 ## Usage
 
 You can run the CLI locally using `ts-node` during development:
