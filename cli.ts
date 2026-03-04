@@ -1,75 +1,38 @@
 #!/usr/bin/env node
-const { Command } = require('commander')
-const axios = require('axios');
+import { Command } from 'commander';
+import chalk from 'chalk';
+import { RandomNumberCommand } from './commands/randomNumberCommand';
+import { PalindromeCommand } from './commands/palindromeCommand';
+import { WordCountCommand } from './commands/wordCountCommand';
+import { FactorialCommand } from './commands/factorialCommand';
+import { FibonacciCommand } from './commands/fibonacciCommand';
+import { UuidCommand } from './commands/uuidCommand';
+import { JsonFormatCommand } from './commands/jsonFormatCommand';
+import { UrlStatusCommand } from './commands/urlStatusCommand';
+import { Base64Command } from './commands/base64Command';
+import { DateDiffCommand } from './commands/dateDiffCommand';
 
-const program = new Command()
-program
-    .command("greet <name>")
-    .action((name) => {
-        console.log(`Hello ${name}`)
-    });
-
-program
-    .command("add <n1> <n2>")
-    .action((n1, n2) => {
-        const num1 = parseFloat(n1);
-        const num2 = parseFloat(n2);
-        if (isNaN(num1) || isNaN(num2)) {
-            console.error("Both arguments must be numbers.");
-            process.exit(1);
-        }
-        console.log(`The sum of ${num1} and ${num2} is ${num1 + num2}`);
-    });
+const program = new Command();
 
 program
-    .command("subtract <n1> <n2>")
-    .action((n1, n2) => {
-        const num1 = parseFloat(n1);
-        const num2 = parseFloat(n2);
-        if (isNaN(num1) || isNaN(num2)) {
-            console.error("Both arguments must be numbers.");
-            process.exit(1);
-        }
-        console.log(`The difference between ${num1} and ${num2} is ${num1 - num2}`);
-    });
-program
-    .command("multiply <n1> <n2>")
-    .action((n1, n2) => {
-        const num1 = parseFloat(n1);
-        const num2 = parseFloat(n2);
-        if (isNaN(num1) || isNaN(num2)) {
-            console.error("Both arguments must be numbers.");
-            process.exit(1);
-        }
-        console.log(`The product of ${num1} and ${num2} is ${num1 * num2}`);
-    });
-program
-    .command("divide <n1> <n2>")
-    .action((n1, n2) => {
-        const num1 = parseFloat(n1);
-        const num2 = parseFloat(n2);
-        if (isNaN(num1) || isNaN(num2)) {
-            console.error("Both arguments must be numbers.");
-            process.exit(1);
-        }
-        if (num2 === 0) {
-            console.error("Cannot divide by zero.");
-            process.exit(1);
-        }
-        console.log(`The quotient of ${num1} and ${num2} is ${num1 / num2}`);
-    });
+    .name('mycmd')
+    .description(chalk.blue.bold('A comprehensive mult-tool CLI created with TypeScript and Commander.js'))
+    .version('1.0.0');
 
+// Register commands
+new RandomNumberCommand(program).register();
+new PalindromeCommand(program).register();
+new WordCountCommand(program).register();
+new FactorialCommand(program).register();
+new FibonacciCommand(program).register();
+new UuidCommand(program).register();
+new JsonFormatCommand(program).register();
+new UrlStatusCommand(program).register();
+new Base64Command(program).register();
+new DateDiffCommand(program).register();
 
-program
-.command("quote")
-.action(async () => {
-    try {
-        const response = await axios.get("https://api.quotable.io/random");
-        const data = response.data;
-        console.log(`"${data.content}" - ${data.author}`);
-    } catch (error) {
-        console.error("Failed to fetch quote:", error);
-    }
-}); 
+program.parse(process.argv);
 
-program.parse();
+if (!process.argv.slice(2).length) {
+    program.outputHelp();
+}

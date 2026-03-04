@@ -1,9 +1,18 @@
 {
-"compilerOptions": {
-"outDir": "./dist",
-"rootDir": "./",
-"module": "CommonJS",
-"target": "ES2019",
-"esModuleInterop": true
-}
+    "compilerOptions": {
+        "target": "es2022",
+        "module": "commonjs",
+        "rootDir": "./",
+        "outDir": "./dist",
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "skipLibCheck": true
+    },
+    "include": [
+        "**/*.ts"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
 }
